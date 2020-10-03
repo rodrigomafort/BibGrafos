@@ -376,7 +376,7 @@ namespace BibGrafos
 		if (caso == 1)
 		{
 			sb << "G é Completo" << "\n";
-			sb << "C1: " + ImprimirListaConjunto(AC.cliques[0]->vertices) << "\n";
+			sb << "C1: " + Grafo::ObterString(AC.cliques[0]->vertices) << "\n";
 		}
 		else
 		{
@@ -401,8 +401,8 @@ namespace BibGrafos
 				set_difference(C1.begin(), C1.end(), C2.begin(), C2.end(), inserter(diferenca, diferenca.begin()));
 				Vertice v = diferenca[0];
 
-				sb << "C1: " + ImprimirListaConjunto(C1) << "\n";
-				sb << "C2: " + ImprimirListaConjunto(C2) << "\n";
+				sb << "C1: " + Grafo::ObterString(C1) << "\n";
+				sb << "C2: " + Grafo::ObterString(C2) << "\n";
 				sb << "v = C1\\C2 = " << v.Id() << "\n";
 			}
 			else
@@ -470,50 +470,15 @@ namespace BibGrafos
 					sb << "G possui três cliques C1, C2 e C3, tais que | C1 \\ C2 | = | C3 \\ C2 | = 1 e C1 U C3 = V(G)" << "\n";
 				}
 
-				sb << "C1: " << ImprimirListaConjunto(C1) << "\n";
-				sb << "C2: " << ImprimirListaConjunto(C2) << "\n";
-				sb << "C3: " << ImprimirListaConjunto(C3) << "\n";
+				sb << "C1: " << Grafo::ObterString(C1) << "\n";
+				sb << "C2: " << Grafo::ObterString(C2) << "\n";
+				sb << "C3: " << Grafo::ObterString(C3) << "\n";
 				sb << "v = C1\\C2 = " << v.Id() << "\t" << "w = C3\\C2 = " << w.Id() << "\n";
 
 			}
 		}
 
 		return sb.str();
-	}
-
-	string GrafoSplitIndiferenca::ImprimirListaConjunto(vector<Vertice> lista)
-	{
-		sort(lista.begin(), lista.end());
-		stringstream ss;
-		ss << "{ ";
-		for (int i = 0; i < lista.size(); i++)
-		{
-			ss << lista[i].Id();
-			if (i < lista.size() - 1)
-			{
-				ss << ", ";
-			}
-		}
-		ss << " }";
-		return ss.str();
-	}
-
-	string GrafoSplitIndiferenca::ImprimirListaConjunto(set<Vertice> lista)
-	{
-		stringstream ss;
-		ss << "{ ";
-		int i = 1;
-		for (Vertice v : lista)
-		{
-			ss << v.Id();
-			if (i < lista.size() - 1)
-			{
-				ss << ", ";
-			}
-			i++;
-		}
-		ss << " }";
-		return ss.str();
 	}
 
 	GrafoSplitIndiferenca::GrafoSplitIndiferenca(int n, int classe)
