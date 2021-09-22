@@ -32,6 +32,9 @@ namespace BibGrafos
 			Grafo(int n, set<set<int>> cliques);
 			Grafo(Grafo* inst);
 
+			bool SalvarArquivoBinario(string nomeArquivo);
+			static Grafo ConstruirDeArquivoBinario(string nomeArquivo);
+
 			void InicializarVertices(int n);
 			int ObterNovoId();
 

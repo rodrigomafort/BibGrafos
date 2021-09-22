@@ -5,7 +5,9 @@
 #include <set>
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
+#include <iostream>
+#include <sstream>
 
 namespace BibGrafos
 {
@@ -92,6 +94,66 @@ namespace BibGrafos
 				}
 			}
 		}
+	}
+
+	bool Grafo::SalvarArquivoBinario(string nomeArquivo)
+	{
+		try
+		{
+			FILE* file = fopen(nomeArquivo.c_str(), "wb");
+
+			ParAdj conf;
+			conf.v1 = N();
+			conf.v2 = M();
+
+			ParAdj* vertices = (ParAdj*) malloc (N() * sizeof(ParAdj));
+			ParAdj* arestas = (ParAdj*) malloc (M() * sizeof(ParAdj));
+
+			ObterListaVertices(vertices);
+			ObterListaArestas(arestas);
+
+			fwrite(&conf,sizeof(ParAdj), 1, file);
+			fwrite(vertices,sizeof(ParAdj), N(), file);
+			fwrite(arestas,sizeof(ParAdj), M(), file);
+			fclose(file);
+			return true;
+		}
+		catch(exception e)
+		{
+			return false;
+		}
+	}
+
+	Grafo Grafo::ConstruirDeArquivoBinario(string nomeArquivo)
+	{
+		int n;
+		int m;
+
+		FILE *file;
+		file = fopen(nomeArquivo.c_str(), "rb");
+
+		ParAdj conf;
+		fread(&conf, sizeof(ParAdj), 1, file);
+
+		n = conf.v1;
+		m = conf.v2;
+
+		ParAdj *vertices = (ParAdj*) malloc(n * sizeof(ParAdj));
+		ParAdj *adjs = (ParAdj*) malloc(m * sizeof(ParAdj));
+
+		for (int i = 0; i < n; i++)
+			fread(&vertices[i], sizeof(ParAdj), 1, file);
+
+		for (int i = 0; i < m; ++i)
+			fread(&adjs[i], sizeof(ParAdj), 1, file);
+
+		fclose(file);
+
+		Grafo *G = new Grafo(n, m, vertices, adjs);
+
+		free(vertices);
+		free(adjs);
+		return G;
 	}
 
 
