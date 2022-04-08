@@ -200,6 +200,7 @@ namespace BibGrafos
 		{
 			Vertice v = fila.front();
 			fila.pop();
+			proc[v].first = true;
 
 			for (Vertice u : G->Adjacentes(v))
 			{
@@ -207,7 +208,7 @@ namespace BibGrafos
 				if (proc[u].second >= requisitos[u] && proc[u].first == false)
 				{
 					fila.push(u);
-					proc[u].first = true;
+					proc[v].first = true;
 				}
 			}
 		}

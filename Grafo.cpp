@@ -341,6 +341,11 @@ namespace BibGrafos
 		}
 	}
 
+	Vertice Grafo::VerticePorIndice(int const indice) const
+	{
+		return VerticePorId(indice+1);
+	}
+
 	bool Grafo::AdicionarAdjacencia(Vertice v, Vertice u)
 	{
 		return AdjList.AdicionarAdjacencia(v, u);

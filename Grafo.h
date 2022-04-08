@@ -44,6 +44,7 @@ namespace BibGrafos
 			Vertice operator[](int const id) const;
 			Vertice VerticePorId(int const id) const;
 			Vertice VerticePorRotulo(int const rotulo) const;
+			Vertice VerticePorIndice(int const indice) const;
 
 			bool TestarVertice(int const id) const;
 
